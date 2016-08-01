@@ -35,8 +35,11 @@ new PokemonGoMITM({port: 8081})
     }
     
     if(data.success) {
-      
-    }
+      if(data.player_data) {
+        data.player_data.tutorial_state = [ 'LEGAL_SCREEN','AVATAR_SELECTION','POKEMON_CAPTURE','NAME_SELECTION','FIRST_TIME_EXPERIENCE_COMPLETE' ];
+      }
+        
+      }
     return data;
   })
   .setResponseHandler('GetInventory', function (data) {
