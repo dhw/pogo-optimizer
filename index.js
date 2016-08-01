@@ -28,14 +28,16 @@ var Inventory = require('./lib/inventory');
 new PokemonGoMITM({port: 8081})
   .setResponseHandler('GetPlayer', function (data) {
     if (data.success && player === null) {
-      if(data.player_data) {
-       data.player_data.tutorial_state = [ 'LEGAL_SCREEN','AVATAR_SELECTION','POKEMON_CAPTURE','NAME_SELECTION','FIRST_TIME_EXPERIENCE_COMPLETE' ];
-      }
+      
       player = new Player(data.player_data.username);
       player.load(data.player_data);
       player.save();
     }
-    data
+    
+    if(data.success) {
+      
+    }
+    return data;
   })
   .setResponseHandler('GetInventory', function (data) {
     if (data.success && player !== null) {
